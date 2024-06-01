@@ -1,3 +1,9 @@
+/*
+ * @LastEditors: Necfol
+ * @Date: 2024-05-31 23:59:11
+ * @LastEditTime: 2024-06-01 14:19:28
+ * @FilePath: /blocklet-project/api/src/index.ts
+ */
 import 'express-async-errors';
 
 import path from 'path';
@@ -10,6 +16,7 @@ import fallback from '@blocklet/sdk/lib/middlewares/fallback';
 
 import logger from './libs/logger';
 import routes from './routes';
+import { initDB } from './models';
 
 dotenv.config();
 
@@ -22,6 +29,12 @@ app.use(cookieParser());
 app.use(express.json({ limit: '1 mb' }));
 app.use(express.urlencoded({ extended: true, limit: '1 mb' }));
 app.use(cors());
+initDB({
+  database: 'blockclet-project',
+  username: 'root',
+  password: '123456',
+  port: 3306,
+});
 
 const router = express.Router();
 router.use('/api', routes);
