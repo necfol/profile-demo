@@ -1,7 +1,7 @@
 /*
  * @LastEditors: Necfol
  * @Date: 2024-05-31 23:59:11
- * @LastEditTime: 2024-06-01 14:19:28
+ * @LastEditTime: 2024-06-01 22:26:30
  * @FilePath: /blocklet-project/api/src/index.ts
  */
 import 'express-async-errors';
@@ -16,6 +16,8 @@ import fallback from '@blocklet/sdk/lib/middlewares/fallback';
 
 import logger from './libs/logger';
 import routes from './routes';
+import profileRoutes from './routes/profile';
+
 import { initDB } from './models';
 
 dotenv.config();
@@ -38,6 +40,7 @@ initDB({
 
 const router = express.Router();
 router.use('/api', routes);
+router.use('/profile', profileRoutes);
 app.use(router);
 
 const isProduction = process.env.NODE_ENV === 'production' || process.env.ABT_NODE_SERVICE_ENV === 'production';
