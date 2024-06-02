@@ -1,7 +1,7 @@
 /*
  * @LastEditors: Necfol
  * @Date: 2024-05-31 23:59:11
- * @LastEditTime: 2024-06-01 22:26:30
+ * @LastEditTime: 2024-06-02 23:52:08
  * @FilePath: /blocklet-project/api/src/index.ts
  */
 import 'express-async-errors';
@@ -32,10 +32,10 @@ app.use(express.json({ limit: '1 mb' }));
 app.use(express.urlencoded({ extended: true, limit: '1 mb' }));
 app.use(cors());
 initDB({
-  database: 'blockclet-project',
-  username: 'root',
-  password: '123456',
-  port: 3306,
+  database: process.env.MYSQL_DATABASE || 'blockclet-project',
+  username: process.env.MYSQL_USERNAME || 'root',
+  password: process.env.MYSQL_PASSWORD || '123456',
+  port: (process.env.MYSQL_PORT || 3306) as number,
 });
 
 const router = express.Router();
