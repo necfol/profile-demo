@@ -1,7 +1,7 @@
 /*
  * @LastEditors: Necfol
  * @Date: 2024-06-01 22:33:20
- * @LastEditTime: 2024-06-02 00:15:36
+ * @LastEditTime: 2024-06-02 23:00:56
  * @FilePath: /blocklet-project/api/src/service/profile.ts
  */
 import { Op } from 'sequelize';
@@ -9,6 +9,7 @@ import { isValidEmail, isValidPhone } from './helper';
 import log from '../libs/logger';
 import { Tables } from '../models';
 import baseService from './base-service';
+import record from './operate-log';
 
 const UserBaseService = baseService('user');
 
@@ -55,6 +56,7 @@ export async function addUser(param: IUser) {
     email,
     phone,
   });
+  await record('新增用户', JSON.stringify(newUser), 'root');
   return newUser;
 }
 
@@ -77,6 +79,15 @@ export async function getUser(id: number) {
   }
 
   return currentUser;
+}
+/**
+ * query all users
+ * @param {}
+ */
+export async function getAllUser() {
+  const { user } = Tables;
+  const users = await user.findAll();
+  return users;
 }
 
 /**
@@ -128,6 +139,6 @@ export async function updateUser(userInfo: IUser) {
   });
 
   const newUser = await UserBaseService.getById(id);
-
+  await record('更新用户', JSON.stringify(newUser), 'root');
   return newUser;
 }

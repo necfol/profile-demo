@@ -1,11 +1,11 @@
 /*
  * @LastEditors: Necfol
  * @Date: 2024-06-01 22:25:16
- * @LastEditTime: 2024-06-02 00:06:44
+ * @LastEditTime: 2024-06-02 21:23:14
  * @FilePath: /blocklet-project/api/src/routes/profile.ts
  */
 import express, { Router, Request, Response } from 'express';
-import { addUser, getUser, updateUser } from '../service/profile';
+import { addUser, getUser, updateUser, getAllUser } from '../service/profile';
 
 const router: Router = express.Router();
 
@@ -15,7 +15,15 @@ interface IProfile {
   email: string;
   [key: string]: string;
 }
-
+// Get all profiles
+router.get('/all', async (_req: Request, res: Response) => {
+  try {
+    const profiles: Array<IProfile | undefined> = await getAllUser();
+    res.status(200).send(profiles);
+  } catch (error) {
+    res.status(500).send(error.message);
+  }
+});
 // Create a new profile
 router.post('/', async (req: Request, res: Response) => {
   const { username, email, phone } = req.body;
