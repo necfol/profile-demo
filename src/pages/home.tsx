@@ -1,21 +1,13 @@
-import { Link } from 'react-router-dom';
-
-import logo from '../logo.svg';
+import { Container, Slogan, ProfileDetail } from '../components';
 
 function Home() {
   return (
-    <header className="app-header">
-      <img src={logo} className="app-logo" alt="logo" />
-      <pre style={{ textAlign: 'left' }}>
-        <code>window.blocklet = {JSON.stringify(window.blocklet, null, 2)}</code>
-      </pre>
-      <Link className="app-link" to="/about">
-        About
-      </Link>
-      <a className="app-link" href="https://developer.blocklet.io/docs/" target="_blank" rel="noopener noreferrer">
-        Learn Blocklet
-      </a>
-    </header>
+    <Container className="bg-custom-gradient">
+      <div className="grid my-10 md:grid-cols-2">
+        <Slogan />
+        <ProfileDetail />
+      </div>
+    </Container>
   );
 }
 
