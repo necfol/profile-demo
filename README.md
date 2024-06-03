@@ -20,6 +20,6 @@
       MYSQL_USERNAME=root
       MYSQL_PASSWORD=123456
   2. npm install --force
-  3. npm run start 启动
+  3. npm run dev 启动
 
 ```
